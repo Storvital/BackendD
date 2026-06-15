@@ -1,0 +1,30 @@
+# ============================================================
+#  STORVITAL — render.yaml
+#  Déploiement automatique sur Render.com
+# ============================================================
+
+services:
+  - type: web
+    name: storvital-backend
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        value: https://storvital.netlify.app
+
+    # Disque persistant pour conserver users.json et orders.json
+    # entre les redémarrages (INDISPENSABLE sur Render)
+    disk:
+      name: storvital-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1

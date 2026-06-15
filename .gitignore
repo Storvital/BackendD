@@ -1,0 +1,14 @@
+# Environnement — NE JAMAIS versionner
+.env
+
+# Dépendances Node.js
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+*.log
+
+# Systèmes
+.DS_Store
+Thumbs.db
